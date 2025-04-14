@@ -1,6 +1,6 @@
 class Order:
     def __init__(self):
-        self.items = []
+        self.items = {}
 
     def add_item(self, item):
         if item in self.items:

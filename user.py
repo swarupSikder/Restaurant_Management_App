@@ -21,6 +21,24 @@ class Admin(User):
         super().__init__(user_name, password)
         self.phone = phone
 
+    def add_employee(self, restaurant, employee):
+        restaurant.employees.append(employee)
+        print(f'{employee.user_name} is added as an Employee')
+
+    def view_employees(self, restaurant):
+        print('\n------------(Employee List)------------')
+        print(f'{"Employee":<15}{"Designation":<15}{"Salary":<10}')
+        for emp in self.employees:
+            print(f'{emp.user_name:<15}{emp.designation:<15}{emp.salary:<10}')
+
+    def add_menu_item(self, restaurant, item):
+        restaurant.menu.add_menu_item(item)
+
+    def remove_item(self, restaurant, item_name):
+        restaurant.menu.remove_item(restaurant, item_name)
+
+    def show_menu(self, restaurant):
+        restaurant.menu.show_menu()
 
 
 class Customer(User):
@@ -37,17 +55,24 @@ class Customer(User):
     def add_to_cart(self, restaurant, item_name, quantity):
         item = restaurant.menu.find_item(item_name)
         if item:
-            item.quantity = quantity
-            self.cart.add_item(item)
-            print(f'{item_name} is added to your cart')
+            if quantity > item.quantity:
+                print('Item qty exceeded!!!')
+            else:
+                item.quantity = quantity
+                self.cart.add_item(item)
+                print(f'{item_name} is added to your cart')
         else:
             print(f'{item_name} not found')
 
     def view_cart(self):
-        print('-----------view cart-----------')
+        print('\n-----------view cart-----------')
         print('Item\tPrice\tQuantity')
         for item, quantity in self.cart.items.items():
-            print(f"{item.name} {item.price} {quantity}")
+            print(f"{item.name}\t{item.price}\t{quantity}")
 
-        print("Total Price : {self.cart.total_price}")
+        print(f"Total Price : {self.cart.total_price()}")
+
+    def pay_bill(self):
+        print('Paid Successfully!')
+        self.cart.clear()
 

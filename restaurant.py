@@ -18,7 +18,7 @@ class Restaurant:
         for emp in self.employees:
             print(f'{emp.user_name:<15}{emp.designation:<15}{emp.salary:<10}')
 
-    def add_menu_item(self, restaurant, item):
+    def add_menu_item(self, item):
         self.menu.add_menu_item(item)
 
     def remove_item(self, restaurant, item):

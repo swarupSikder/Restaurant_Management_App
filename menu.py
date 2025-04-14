@@ -7,7 +7,7 @@ class Menu:
 
     def find_item(self, item_name):
         for item in self.items:
-            if item.name.lower() == item_name:
+            if item.name.lower() == item_name.lower():
                 return item
         return None
     
