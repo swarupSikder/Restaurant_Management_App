@@ -1,0 +1,1 @@
+customer1.view_cart()
